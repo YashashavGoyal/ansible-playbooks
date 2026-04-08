@@ -1,0 +1,13 @@
+Define reusable blocks:
+
+    {% macro nginx_upstream(name, servers) %}
+    upstream {{ name }} {
+    {% for server in servers %}
+        server {{ server }};
+    {% endfor %}
+    }
+    {% endmacro %}
+
+Call macro:
+
+    {{ nginx_upstream('backend', backend_servers) }}

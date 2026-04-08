@@ -1,0 +1,12 @@
+---
+ - name: Print secret vars
+   hosts: all
+   gather_facts: no
+   vars_files:
+     - create.yml
+     - encrypt.yml
+
+   tasks: 
+     - name: print secret
+       debug:
+         msg: "passwd: root, create: {{ create }}, encrypt: {{ encrypt }}"

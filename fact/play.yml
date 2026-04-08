@@ -1,0 +1,9 @@
+---
+ - name: checking facts
+   hosts: localhost
+     #gather_facts: no
+
+   tasks:
+     - name: "set custom fact in /etc/ansible/facts.d/"
+       debug:
+         msg: "{{ ansible_local.app.app.version }}"

@@ -1,0 +1,14 @@
+
+Port {{ ssh_port | default(22) }}
+
+{% if permit_root_login | default(false) %}
+PermitRootLogin yes
+{% else %}
+PermitRootLogin no
+{% endif %}
+
+{% if password_auth | default(false) %}
+PasswordAuthentication yes
+{% else %}
+PasswordAuthentication no
+{% endif %}

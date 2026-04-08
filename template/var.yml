@@ -1,0 +1,49 @@
+msg: Learning template
+env: it is Env var
+islearn: ""
+
+backup_enabled: yes
+
+fruits:
+  - Apple
+  - Mango
+  - Orange
+  - Chiku
+  - Mosambi
+  - Banana
+  - Pomeogrante
+  - Kiwi
+
+pkgs:
+  - httpd
+  - nginx
+  - curl
+  - wget
+  - git
+  - python
+  - ansible
+  - mariadb-server
+  - postgres
+
+users:
+  - user: admin
+    role: admin
+  - user: keshav
+    role: head
+  - user: root
+    role: super user
+  - user: yashav
+    role: Maalik
+
+
+vhosts: 
+  - port: 80
+    name: new_default_server
+  - port: 8090
+    name: funcky port
+  - port: 5173
+    name: vite
+  - port: 3000
+    name: next
+
+name: server-web

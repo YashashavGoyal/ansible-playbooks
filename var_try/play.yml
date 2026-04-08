@@ -1,0 +1,15 @@
+---
+ - name: Learning Variable Priority
+   hosts: all
+   gather_facts: no
+   vars_files:
+     - var_file.yml
+   vars: 
+     print: play var
+
+   tasks:
+     - name: printing vars
+       debug:
+         msg: "{{ print }}"
+      #vars:
+         #print: task var

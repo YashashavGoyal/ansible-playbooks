@@ -1,0 +1,19 @@
+---
+ - name: Copy custom fact on host
+   hosts: all
+   gather_facts: yes
+
+   tasks:
+     - name: Copy custom fact to remote hosts
+       copy:
+         src: facts.d/app.fact
+         dest: /etc/ansible/facts.d/app.fact
+         mode: '0644'
+
+     - name: Re-gather facts
+       ansible.builtin.setup:  # refresh facts 
+
+     - name: Show custom fact
+       debug:
+         var: ansible_local.app.app.version
+

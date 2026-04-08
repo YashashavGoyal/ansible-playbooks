@@ -1,0 +1,15 @@
+# 192.168.88.134 ansible_user=keshav  # also correct
+
+server2 ansible_host=192.168.88.134 ansible_user=user
+
+[dev]
+node1 ansible_host=192.168.88.130
+
+
+[prod]
+node2 ansible_host=192.168.88.135
+
+
+[servers:children]
+dev
+prod

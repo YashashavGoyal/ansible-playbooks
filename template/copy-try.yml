@@ -1,0 +1,9 @@
+---
+ - name: 1st template yml
+   hosts: all
+
+   tasks: 
+     - name: copy copy file
+       template:
+         src: copy
+         dest: i_am_god/copy

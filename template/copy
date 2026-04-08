@@ -1,0 +1,2 @@
+{# practice #}
+{{ ansible_distribution }} - {{ ansible_distribution_version }} with release {{ ansible_distribution_release }}

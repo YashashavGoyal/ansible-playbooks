@@ -1,0 +1,39 @@
+all:
+  vars:
+    print: group inventory ungrouped
+
+  hosts:
+    server2:
+      ansible_host: 192.168.88.134
+      ansible_user: user
+      print: host inventory server2
+
+  children:
+
+    dev:
+      hosts:
+        node1:
+          ansible_host: 192.168.88.130
+          ansible_user: admin
+          print: host inventory node1
+      
+      vars:
+        print: group invetory dev
+
+    prod:
+      hosts:
+        node2:
+          ansible_host: 192.168.88.135
+          ansible_user: admin
+          print: host inventory node1
+      
+      vars:
+        print: group inventory prod
+
+    servers:
+      children:
+        dev:
+        prod:
+
+      vars:
+        print: group inventory servers
