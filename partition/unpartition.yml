@@ -1,0 +1,17 @@
+---
+ - name: unpartition
+   hosts: servers
+
+   tasks:
+     - name: unmount
+       mount:
+         path: /small
+         state: absent
+
+     - name: un parted
+       parted:
+         device: /dev/sdc
+         number: 1
+         state: absent
+
+

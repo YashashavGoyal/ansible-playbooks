@@ -1,0 +1,11 @@
+---
+- name: Wait for service
+  hosts: all
+  tasks:
+    - name: Check if nginx is active
+      shell: systemctl is-active nginx
+      register: nginx_status
+      retries: 5
+      delay: 5
+      until: nginx_status.stdout == "active"
+

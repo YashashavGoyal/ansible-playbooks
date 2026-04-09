@@ -1,0 +1,16 @@
+--- 
+ - name: Install OS - specific pkg
+   hosts: all
+
+   tasks: 
+     - name: Install web server pkg
+       package:
+         name: "{{ item }}"
+         state: present
+       loop: 
+         - httpd
+         - apache2
+       when: 
+         - (ansible_os_family == "Debian" and item == "apache2") or
+           (ansible_os_family == "RedHat" and item == "httpd")
+

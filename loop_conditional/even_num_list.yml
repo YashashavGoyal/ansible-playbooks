@@ -1,0 +1,18 @@
+---
+- name: Filter even numbers
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Define numbers
+      set_fact:
+        numbers: [1,2,3,4,5,6]
+
+    - name: Build even number list
+      set_fact:
+        even_numbers: "{{ even_numbers | default([]) + [item] }}"
+      loop: "{{ numbers }}"
+      when: item % 2 == 0
+
+    - debug:
+        var: even_numbers
+

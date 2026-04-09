@@ -1,0 +1,15 @@
+---
+ - name: unparted
+   hosts: servers
+
+   tasks: 
+     - name: unmount
+       mount: 
+         path: /new
+         state: absent
+
+     - name: un part
+       parted:
+         device: /dev/sdb
+         number: 1
+         state: absent

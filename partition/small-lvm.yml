@@ -1,0 +1,38 @@
+---
+ - name: lvm
+   hosts: servers
+
+   tasks:
+     - name: check
+       debug:
+         msg: VG not found
+       when: ansible_lvm.vgs.research is not defined
+
+     - name: end host play
+       meta: end_host
+       when: ansible_lvm.vgs.research is not defined
+
+     - name: create lv
+       lvol:
+         vg: research 
+         lv: newlv
+         size: 1.6g
+       when: ansible_lvm.vgs.research.free_g >= '20'
+
+     - name: size
+       debug: 
+         msg: Size not avial
+       when: ansible_lvm.vgs.research.free_g <= '20'
+
+     - name: create lv
+       lvol:
+         vg: research
+         lv: newlv
+         size: 800m
+       when: ansible_lvm.vgs.research.free_g <= '20'
+
+     - name: format
+       filesystem:
+         dev: /dev/research/newlv
+         fstype: ext4
+

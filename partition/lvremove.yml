@@ -1,0 +1,11 @@
+---
+ - name: remove lvm
+   hosts: servers
+
+   tasks: 
+     - name: remove vg
+       lvol:
+         vg: newvg
+         lv: newlv
+         state: absent
+         force: true

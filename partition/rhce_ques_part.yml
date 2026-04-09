@@ -1,0 +1,62 @@
+---
+ - name: part
+   hosts: servers
+
+   tasks:
+     - name: create partition
+       parted:
+         device: /dev/sdc
+         number: 1
+         state: present
+         fs_type: ext4
+         part_end: 800MiB
+
+     - name: check device
+       debug:
+         msg: Device not present
+       when: ansible_devices.sdb is not defined
+
+     - name: end play
+       meta: end_host
+       when: ansible_devices.sdb is not defined
+
+     - name: create part
+       parted:
+         device: /dev/sdb
+         number: 1
+         state: present
+         fs_type: ext4
+         part_end: 1.6GiB
+       when: ansible_devices.sdb.size >= '1.6g'
+
+     - name: size not present
+       debug:
+         msg: Requested size not present
+       when: ansible_devices.sdb.size <= '1.6g'
+
+     - name: create small part
+       parted:
+         device: /dev/sdb
+         number: 1
+         state: present
+         fs_type: ext4
+         part_end: 800MiB
+       when: ansible_devices.sdb.size <= '1.6g'
+
+     - name: format
+       filesystem:
+         dev: /dev/sdb1
+         fstype: ext4
+
+     - name: dir
+       file:
+         path: /news
+         state: directory
+
+     - name: mount
+       mount: 
+         path: /news
+         src: /dev/sdb1
+         fstype: ext4
+         state: mounted
+

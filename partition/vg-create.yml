@@ -1,0 +1,15 @@
+---
+ - name: vg
+   hosts: servers
+
+   tasks:
+     - name: vg
+       lvg:
+         vg: newvg
+         pvs: /dev/sde
+
+     - name: lv
+       lvol:
+         vg: newvg
+         lv: newlv
+         size: 1024m

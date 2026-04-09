@@ -1,0 +1,49 @@
+---
+ - name: create partition
+   hosts: servers
+
+   tasks:
+     - name: check device
+       debug:
+         msg: "Requested Device Not Found"
+       when: ansible_devices.sdd is not defined
+
+     - name: create partition 
+       parted:
+         device: /dev/sdd
+         number: 2
+         state: present
+         part_end: 1.6GiB
+         fs_type: ext4
+       when: ansible_devices.sdd.size >= '1.6g'
+
+     - name: check size
+       debug:
+         msg: Requested size not present
+       when: ansible_devices.sdd.size <= '1.6g'
+
+     - name: create small partition
+       parted:
+         number: 2
+         device: /dev/sdd
+         part_end: 400MiB
+         state: present
+         fs_type: ext4
+       when: ansi_devices.sdd.size <= '1.6g'
+
+     - name: format
+       filesystem:
+         dev: /dev/sdd2
+         fstype: ext4
+
+     - name: dir /new
+       file:
+         path: /new
+         state: directory
+
+     - name: mount
+       mount:
+         path: /new
+         src: /dev/sdd2
+         state: mounted
+

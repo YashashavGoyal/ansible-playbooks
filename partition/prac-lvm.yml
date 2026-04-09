@@ -1,0 +1,38 @@
+---
+ - name: lvm
+   hosts: servers
+
+   tasks:
+     - name: check 
+       debug:
+         msg: Vg not fount
+       when: ansible_lvm.vgs.research is not defined
+
+     - name: end host play
+       meta: end_host
+       when: ansible_lvm.vgs.research is not defined
+
+     - name: create lv
+       lvol:
+         vg: research
+         lv: datag
+         size: 1500m
+       when: ansible_lvm.vgs.research.free_g >= '1.6'
+
+     - name: size not aval
+       debug:
+         msg: size not aval
+       when: ansible_lvm.vgs.research.free_g <= '1.6'
+
+     - name: create small
+       lvol:
+         vg: research
+         lv: datag
+         size: 800m
+       when: ansible_lvm.vgs.research.free_g <= '1.6'
+
+     - name: format
+       filesystem:
+         dev: /dev/research/datag
+         fstype: ext3
+
